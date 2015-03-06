@@ -29,8 +29,15 @@ class TaskClass implements Runnable {
 	
 	@Override
 	public void run() {
-		for(int i = 0; i < timesRun; i++) {
-			System.out.println(greeting + " ");
+		try {
+			for(int i = 0; i < timesRun; i++) {
+				System.out.println(greeting + " ");
+				if(greeting.equals("Someone") && i >= 150) {
+					Thread.sleep(1);
+				}
+			}
+		} catch (InterruptedException ex) {
+			ex.printStackTrace();
 		}
 	}
 }
