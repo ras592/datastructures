@@ -125,3 +125,48 @@ public class FlashingText extends JApplet implements Runnable {
 ```
 
 ### Threads in GUI Animations
+
+
+### Thread Pools
+
+- You define a task class by implementing Runnable
+- Creating a thread by:
+- Runnable task = new TaskClass(task);
+- new Thread(task).start();
+
+- This is efficient for a single task, but not efficient for large number of tasks.
+- Thread pools are efficient an executing tasks concurrently.
+- Java provides the Executor interface for executing tasks in a thread pool and the ExecutorService
+	interface for managing and controlling tasks.
+- ExecutorService is a subinterface for Executor
+
+			<<interface>>
+	java.util.concurrent.Executor
++ execute(Runnable object): void // executes the runnable task
+
+			<<interface>>
+	java.util.concurrent.ExecutorService
++shutdown(): void				// shuts down the executor, but allows the tasks in the executor to complete. Once shut down, it cannot accept new tasks
++shutdownNow(): List<Runnable> 	// shuts down the executor immediately and returns the list of unfinished tasks
++isShutdown(): boolean 			// returns true if shut down
++isTerminated(): boolean		// returns true if all the tasks in the pool are terminated
+ 
+
+- To create an Executor object, use the static methods in the Executors class
+- newFixedThreadPool(int) method creates a fixed number of threads in a pool.
+- If a thread completes executing a task, it can be reused to execute another task.
+- If a thread terminates due to a failure prior to shutdown, a new thread will be created to replace it if all the threads in the pool are not idle and there are tasks waiting for execution.
+- The newCachedThreadPool() method creates a new thread if all the threads in the pool are not idle and there are tasks waiting for execution. 
+- A thread in a cached pool will be terminated if it has not been used for 60 seconds. 
+- A cached pool is efficient for many short tasks.
+
+	java.util.concurrent.Executors
++newFixedThreadPool(numberOfThreads: int): ExecutorService	// Creates a thread pool with a fixed number of threads executing concurrently. A thread may be reused to execute another task after its current task is finished.
++newCachedThreadPool(): ExecutorService						// Creates a thread pool that creates new threads as needed, but will reuse previously constructed threads when they are available.
+
+
+#### Switch to ExecutorDemo.java
+- Demonstrates how to used thread pools
+
+#### Thread Synchronization
+- Coordinates the execution of the dependent threads.
