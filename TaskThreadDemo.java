@@ -33,8 +33,15 @@ class PrintChar implements Runnable {
 	
 	@Override
 	public void run() {
-		for(int i = 0; i < times; i++) {
-			System.out.println(charToPrint);
+		try {
+			for(int i = 0; i < times; i++) {
+				System.out.println(charToPrint);
+				if(i >= 900) {
+					Thread.sleep(10);
+				}
+			}
+		} catch(InterruptedException ex) {
+			ex.printStackTrace();
 		}
 	}
 }
@@ -50,8 +57,15 @@ class PrintNum implements Runnable {
 	
 	@Override
 	public void run() {
-		for(int i = 1; i <= lastNum; i++) {
-			System.out.println(" " + i);
+		try {
+			for(int i = 1; i <= lastNum; i++) {
+				System.out.println(" " + i);
+				if(i >= 50) {
+					Thread.sleep(10);
+				}
+			}
+		} catch (InterruptedException ex) {
+			ex.printStackTrace();
 		}
 	}
 }
