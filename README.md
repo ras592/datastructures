@@ -5,42 +5,40 @@
 ##### Client Class
 ```java
 // Client class
-public class Client {
+public class Client { 
 	...
-	// Create a thread
-	CustomThread thread1 = new CustomThread(...);
-	
-	// Start a thread
-	thread1.start();
-	...
-	
-	// create another thread
-	CustomThread thread2 = new CustomThread(...);
-	
-	// Start a thread
-	thread2.start();
+	public void someMethod() { 
+		...
+		// Create an instance of TaskClass
+		TaskClass task = new TaskClass(...);
+
+		// Create a thread
+		Thread thread = new Thread(task);
+    
+		// Start a thread
+    		thread.start();
+		... 
 	}
 	...
 }
-
-// Custom thread class
-public class CustomThread extends Thread {
+// Custom task class
+public class TaskClass implements Runnable { 
 	...
-	public CustomThread(...) {
+	public TaskClass(...) {
 		...
 	}
-	
-	// Override the run method in Runnable
+  	// Implement the run method in Runnable
 	public void run() {
-		// Tell system how to perform this task
+		// Tell system how to run custom thread
 		...
 	}
-	...
+	... 
 }
 ```
 
-Thread Sleep
-============
+- Runnable interface has to implement run method
+
+### Thread Sleep
 ```java
 public void run() {
 		try {
@@ -56,3 +54,39 @@ public void run() {
 	}
 ```
 
+- Stops this thread for a specified amount of time
+
+### Thread Yield
+```java
+public void run() {
+	for (int i = 1; i <= lastNum; i++) {
+		System.out.print(" " + i);
+      	Thread.yield();
+	}
+}
+```
+
+-Temporarily stops this thread and allows others to execute
+
+### Thread Join
+```java
+public void run() {
+	Thread thread4 = new Thread(new PrintChar('c', 40));
+	try {
+		for (int i = 0; i <= lastNum; i++) {
+			System.out.println(" " + i);
+			if(i == 50) thread4.join();
+		}
+	} catch (InterruptedException ex) {
+	}
+}
+```
+
+- waits for this thread to finish
+
+#### Priority
+- Priority can be from 1 - 10
+- Thread with lower priority cannot execute till all higher priority threads execute
+- Defaulted to NORM_PRIORITY
+- When all equal priority, equal CPU time (round-robin scheduling)
+ 
