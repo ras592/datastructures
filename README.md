@@ -66,7 +66,7 @@ public void run() {
 }
 ```
 
--Temporarily stops this thread and allows others to execute
+- Temporarily stops this thread and allows others to execute
 
 ### Thread Join
 ```java
@@ -90,3 +90,38 @@ public void run() {
 - Defaulted to NORM_PRIORITY
 - When all equal priority, equal CPU time (round-robin scheduling)
  
+### Thread Controlling Animation
+
+```java
+import javax.swing.JApplet;
+import javax.swing.JLabel;
+
+public class FlashingText extends JApplet implements Runnable {
+	private JLabel jText = new JLabel("Welcome", JLabel.CENTER);
+	
+	public FlashingText() {
+		add(jText);
+		new Thread(this).start();
+	}
+	
+	// set the text on/off every 200 milli
+	@Override
+	public void run() {
+		try {
+			while(true) {
+				if(jText.getText() == null) {
+					jText.setText("Welcome");
+				} else {
+					jText.setText(null);
+				}
+				Thread.sleep(500);
+			}
+		} catch (InterruptedException ex) {
+			ex.printStackTrace();
+		}
+		
+	}
+}
+```
+
+### Threads in GUI Animations
